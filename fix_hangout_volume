@@ -1,0 +1,4 @@
+plutil -convert xml1  ~/Library/Preferences/com.google.GoogleTalkPluginD.plist
+cat ~/Library/Preferences/com.google.GoogleTalkPluginD.plist
+plutil -convert binary1 ~/Library/Preferences/com.google.GoogleTalkPluginD.plist
+
