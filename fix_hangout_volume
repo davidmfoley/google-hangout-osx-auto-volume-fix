@@ -1,6 +1,29 @@
-plutil -convert xml1  ~/Library/Preferences/com.google.GoogleTalkPluginD.plist
-cat ~/Library/Preferences/com.google.GoogleTalkPluginD.plist | awk '// {if (flags == 1) {printf "        <string>1</string>\n"; flags=0} else {printf "%s\n", $0}} />audio-flags/ {flags=1;} ' > .temp_plist
+#! /bin/bash
+PLIST=~/Library/Preferences/com.google.GoogleTalkPluginD.plist
+if [ -e $PLIST ]; then
+  plutil -convert xml1 $PLIST
+  cat $PLIST | awk '// {if (flags == 1) {printf "        <string>1</string>\n"; flags=0} else {printf "%s\n", $0}} />audio-flags/ {flags=1;} ' > .temp_plist
+else
+  echo '<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>audio-flags</key>
+  <string>1</string>
+	<key>audio-input</key>
+	<string></string>
+	<key>audio-output</key>
+	<string></string>
+	<key>known-audio-flags</key>
+	<string>63</string>
+	<key>video-capture</key>
+	<string></string>
+</dict>
+</plist>
+' > .temp_plist
+fi
+
 cat .temp_plist
-mv .temp_plist ~/Library/Preferences/com.google.GoogleTalkPluginD.plist
-plutil -convert binary1 ~/Library/Preferences/com.google.GoogleTalkPluginD.plist
+mv .temp_plist $PLIST
+plutil -convert binary1 $PLIST
 
