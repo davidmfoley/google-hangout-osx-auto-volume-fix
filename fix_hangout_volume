@@ -1,5 +1,7 @@
 #! /bin/bash
 PLIST=~/Library/Preferences/com.google.GoogleTalkPluginD.plist
+cp $PLIST $PLIST.backup
+
 if [ -e $PLIST ]; then
   plutil -convert xml1 $PLIST
   cat $PLIST | awk '// {if (flags == 1) {printf "        <string>1</string>\n"; flags=0} else {printf "%s\n", $0}} />audio-flags/ {flags=1;} ' > .temp_plist
