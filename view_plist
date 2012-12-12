@@ -1,0 +1,13 @@
+#! /bin/bash
+PLIST=~/Library/Preferences/com.google.GoogleTalkPluginD.plist
+cp $PLIST $PLIST.backup
+
+if [ -e $PLIST ]; then
+  plutil -convert xml1 $PLIST
+  cat $PLIST
+plutil -convert binary1 $PLIST
+else
+  echo 'No plist found'
+fi
+
+
